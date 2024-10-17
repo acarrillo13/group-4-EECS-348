@@ -27,9 +27,9 @@ int modulate(int n1, int n2){
 }
 /*
 int exponent(int n1, int  n2){
-    int ex;
+    int ex = 1;
     for(i=0,i<n2,i++){
-        ex = n1 * n1;
+        ex *= n1;
     }
     return ex;
 }
