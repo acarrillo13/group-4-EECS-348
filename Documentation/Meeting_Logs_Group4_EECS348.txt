@@ -1,13 +1,17 @@
 Meeting Logs:
 
-September 25, 2024
+*September 25, 2024
 
 In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
 
 Main focus of meeting was creating the project plan, which was completed during the meeting. The roles of the project were designated with Viren Padarthi as the UI/UX Design, Noah Hickman as the Scrum Master, Riley Backus as the Quality Assurance Lead, Sina Asheghalishahi as the Configuration Manager, Alexander Carrillo as the Project Manager, and Wyatt Payne as the Technical Lead.
 
-October 16, 2024
+*October 16, 2024
 
 In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
 
 Main focus of meeting was creating the Software Requirements Specification, which was completed during the meeting. Mild discussions of the practicalities of the code constraints beyond what is listed in the Software Requirements Specification were also brought up (discussion of input value types and assignment of front and back end coding roles).
+
+*November 4, 2024
+
+In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
