@@ -15,3 +15,5 @@ Main focus of meeting was creating the Software Requirements Specification, whic
 *November 4, 2024
 
 In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
+
+We went over the 3rd document and filled it out together. We also heavily discussed how our program would be parsing the user input to break it down into separate operations. we also went over what the user interface will look like and how we can expect it to function. 
