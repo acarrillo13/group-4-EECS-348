@@ -1,5 +1,6 @@
 #include "BiTree.h"
 #include <iostream>
+#include <cstring>
 
 //Constructor
 BiTree::BiTree()
@@ -23,7 +24,7 @@ void BiTree::deleteNodes(BiTrNode* node){
 
 void BiTree::testInsert(){
      //Will delete Later
-     char z = 'w';
+     char z[] = {'w'};
      root = new BiTrNode(z);
 }
 
@@ -155,6 +156,140 @@ bool BiTree::isValid(char arr[], int size){
       return true;
 }
 
-void BiTree::parse(char arr[], BiTrNode* node){
+void BiTree::parse(char arr[], BiTrNode* curNode){
       /*Parses through given equation string and turns it into a binary tree*/
+      //Assumes valid equation
+      int priority = 6;
+      int priorityIndex = -1;
+      int size = strlen(arr);
+      int parenthesisIndex[size];
+      parenIndex(arr, size, parenthesisIndex);
+      for(int i = 0; i < size; i++){
+            bool external = true;
+            for(int j = 0; j < size; j++){
+                  if(parenthesisIndex[j] > 0){
+                        if(i > j && i < parenthesisIndex[j]){
+                              external = false;
+                        }
+                  }
+            }
+            if(external){
+                  if(arr[i] == '+' || arr[i] == '-'){
+                        if(priority >= 1){
+                              priority = 1;
+                              priorityIndex = i;
+                        }
+                  }
+                  else if(arr[i] == '/' || arr[i] == '%'){
+                        if(priority >= 2){
+                              priority = 2;
+                              priorityIndex = i;
+                        }
+                  }
+                  else if(arr[i] == '*'){
+                        if(arr[i-1] == '*' || arr[i+1] == '*'){
+                              if(priority >= 3){
+                                    priority = 3;
+                                    priorityIndex = i;
+                              }
+                        }
+                        else{
+                              if(priority >= 2){
+                                    priority = 2;
+                                    priorityIndex = i;
+                              }                            
+                        }
+                  }
+                  else if(arr[i] == '(' || arr[i] == ')'){
+                        if(priority >= 4){
+                              priority = 4;
+                              priorityIndex = i;
+                        }
+                  }
+                  else{
+                        if(priority >= 5){
+                              priority = 5;
+                              priorityIndex = i;
+                        }
+                  }
+            }
+      }
+      if(priority == 1){
+            char opr[1] = {arr[priorityIndex]};
+            if(priorityIndex == 0){
+                  curNode->value = opr;
+                  char q[1] = {'Q'};
+                  curNode->left = new BiTrNode(q);
+                  char rArr[size - 1];
+                  int counter = 0;
+                  for(int r = 0; r < size-1; r++){
+                        rArr[counter] = arr[r+1];
+                        counter++;
+                  }
+                  curNode->right = new BiTrNode(rArr);
+                  parse(rArr, curNode->right);
+            }else{
+                  curNode->value = opr;
+                  char lArr[priorityIndex];
+                  for(int l = 0; l < priorityIndex; l++){
+                        lArr[l] = arr[l];
+                  }
+                  curNode->left = new BiTrNode(lArr);
+                  parse(lArr, curNode->left);
+                  char rArr[size - (priorityIndex + 1)];
+                  int counter = 0;
+                  for(int r = priorityIndex + 1; r < size; r++){
+                        rArr[counter] = arr[r];
+                        counter++;
+                  }
+                  curNode->right = new BiTrNode(rArr);
+                  parse(rArr, curNode->right);
+            }
+      }
+      if(priority == 2){
+            char opr[1] = {arr[priorityIndex]};
+            curNode->value = opr;
+            char lArr[priorityIndex];
+            for(int l = 0; l < priorityIndex; l++){
+                  lArr[l] = arr[l];
+            }
+            curNode->left = new BiTrNode(lArr);
+            parse(lArr, curNode->left);
+            char rArr[size - (priorityIndex + 1)];
+            int counter = 0;
+            for(int r = priorityIndex + 1; r < size; r++){
+                  rArr[counter] = arr[r];
+                  counter++;
+            }
+            curNode->right = new BiTrNode(rArr);
+            parse(rArr, curNode->right);
+      }
+      if(priority == 3){
+            char opr[1] = {'^'};
+            curNode->value = opr;
+            char lArr[priorityIndex];
+            for(int l = 0; l < priorityIndex; l++){
+                  lArr[l] = arr[l];
+            }
+            curNode->left = new BiTrNode(lArr);
+            parse(lArr, curNode->left);
+            char rArr[size - (priorityIndex + 1)];
+            int counter = 0;
+            for(int r = priorityIndex + 1; r < size; r++){
+                  rArr[counter] = arr[r];
+                  counter++;
+            }
+            curNode->right = new BiTrNode(rArr);
+            parse(rArr, curNode->right);
+      }
+      if(priority == 4){
+            char internal[size-2];
+            int counter = 0;
+            for(int m = 1; m < size - 1; m++){
+                  internal[counter] = arr[m];
+                  counter++;
+            }
+            curNode->value = internal;
+            parse(internal, curNode);
+      }
 }
