@@ -90,6 +90,10 @@ bool BiTree::isValid(char arr[], int size){
       }
       //Checking that the placement of each operator follows proper operator rules
       for(int i = 0; i < size; i++){
+            //For unexpected symbols
+            if(arr[i] != '0' && arr[i] != '1' && arr[i] != '2' && arr[i] != '3' && arr[i] != '4' && arr[i] != '5' && arr[i] != '6' && arr[i] != '7' && arr[i] != '8' && arr[i] != '9' && arr[i] != '+' && arr[i] != '-' && arr[i] != '/' && arr[i] != '%' && arr[i] != '*' && arr[i] != '(' && arr[i] != ')'){
+                  return false;
+            }
             //For Addition/Positive
             if(arr[i] == '+'){
                   if(i == 0){
