@@ -1,6 +1,7 @@
 #include "BiTree.h"
 #include <iostream>
-#include <cstring>
+#include <string>
+using namespace std;
 
 //Constructor
 BiTree::BiTree()
@@ -8,9 +9,17 @@ BiTree::BiTree()
 {}
 
 //Destructor
+BiTree::~BiTree(){
+      Clear();
+}
+
 void BiTree::Clear(){
       deleteNodes(root);
       root = nullptr;
+      cout << "Cleared" << endl;
+      if(root == nullptr){
+            cout << "Null Pointed" << endl;
+      }
 }
 
 void BiTree::deleteNodes(BiTrNode* node){
@@ -19,25 +28,34 @@ void BiTree::deleteNodes(BiTrNode* node){
             deleteNodes(node->left);
             deleteNodes(node->right);
             delete node;
+            cout << "Node Deleted" << endl;
       }
 }
 
-void BiTree::testInsert(){
+void BiTree::test(){
      //Will delete Later
-     char z[] = {'w'};
+     string z = "1+(2**2-(3/4))";
+     cout << "Made String" << endl;
      root = new BiTrNode(z);
+     cout << "Made Root" << endl;
+     parse(z, root);
+     cout << "Parsed" << endl;
+     testPrint(root);
+     cout << "Printed" << endl;
 }
 
-void BiTree::testPrint(){
+void BiTree::testPrint(BiTrNode* curNode){
      //Will delete later
-      if(root != nullptr){
-            std::cout << root->value << std::endl;
-      }else{
-            std::cout << "Empty Tree" << std::endl;
+     if(curNode != nullptr){
+           testPrint(curNode->left);
+           testPrint(curNode->right);
+            cout << "<><><><><><><><><>" << endl;
+            cout << curNode->value << endl;
+            cout << "------------------" << endl;
       }
 }
 
-void BiTree::parenIndex(char arr[], int size, int* priIndex){
+void BiTree::parenIndex(const string& str, int size, int* priIndex){
       /*Takes an equation string of length size and finds the index values of each parenthesis and their pair*/
       //priIndex is an empty array defined outside of function and edited from function
       //First element of priIndex will be -2 if the given equation has invalid parenthesis
@@ -46,13 +64,13 @@ void BiTree::parenIndex(char arr[], int size, int* priIndex){
             //Each element of priIndex starts as -1
             priIndex[i] = -1;
             //If a ( is found, a 0 is placed in same index position as the (
-            if(arr[i] == '('){
+            if(str[i] == '('){
                   priIndex[i] = 0;
             }
             //Counter for backtracing through parIndex to find last inputted (
             parInCounter++;
             //If a ) is found, places its index placement value at index of its ( pair, or reports an error number if no pair found
-            if(arr[i] == ')'){
+            if(str[i] == ')'){
                   //For checking if it has found a pair
                   bool pairNotFound = true;
                   //Looking for ( to match )
@@ -80,29 +98,28 @@ void BiTree::parenIndex(char arr[], int size, int* priIndex){
       }
 }
 
-bool BiTree::isValid(char arr[], int size){
+bool BiTree::isValid(const string& str, int size){
       /*Checks whether the inputted equation is valid*/
       //Checking for valid parenthesis usage
-      //Write side outside of function as int size = std::end(arr) - std::begin(arr);
       int parenthesisIndex[size];
-      parenIndex(arr, size, parenthesisIndex);
+      parenIndex(str, size, parenthesisIndex);
       if(parenthesisIndex[0] == -2){
             return false;
       }
       //Checking that the placement of each operator follows proper operator rules
       for(int i = 0; i < size; i++){
             //For unexpected symbols
-            if(arr[i] != '0' && arr[i] != '1' && arr[i] != '2' && arr[i] != '3' && arr[i] != '4' && arr[i] != '5' && arr[i] != '6' && arr[i] != '7' && arr[i] != '8' && arr[i] != '9' && arr[i] != '+' && arr[i] != '-' && arr[i] != '/' && arr[i] != '%' && arr[i] != '*' && arr[i] != '(' && arr[i] != ')'){
+            if(str[i] != '0' && str[i] != '1' && str[i] != '2' && str[i] != '3' && str[i] != '4' && str[i] != '5' && str[i] != '6' && str[i] != '7' && str[i] != '8' && str[i] != '9' && str[i] != '+' && str[i] != '-' && str[i] != '/' && str[i] != '%' && str[i] != '*' && str[i] != '(' && str[i] != ')'){
                   return false;
             }
             //For Addition/Positive
-            if(arr[i] == '+'){
+            if(str[i] == '+'){
                   if(i == 0){
-                        if(arr[1] == ')' || arr[1] == '+' || arr[1] == '-' || arr[1] == '*' || arr[1] == '/' || arr[1] == '%'){
+                        if(str[1] == ')' || str[1] == '+' || str[1] == '-' || str[1] == '*' || str[1] == '/' || str[1] == '%'){
                               return false;
                         }
                   }else if(i != size - 1){
-                        if(arr[i-1] == '+' || arr[i-1] == '-' || arr[i-1] == '*' || arr[i-1] == '/' || arr[i-1] == '%' || arr[i+1] == '+' || arr[i+1] == '-' || arr[i+1] == '*' || arr[i+1] == '/' || arr[i+1] == '%'){
+                        if(str[i-1] == '+' || str[i-1] == '-' || str[i-1] == '*' || str[i-1] == '/' || str[i-1] == '%' || str[i+1] == '+' || str[i+1] == '-' || str[i+1] == '*' || str[i+1] == '/' || str[i+1] == '%'){
                               return false;
                         }
                   }else{
@@ -110,13 +127,13 @@ bool BiTree::isValid(char arr[], int size){
                   }
             }
             //For Subtraction/Negative
-            if(arr[i] == '-'){
+            if(str[i] == '-'){
                   if(i == 0){
-                        if(arr[1] == ')' || arr[1] == '+' || arr[1] == '-' || arr[1] == '*' || arr[1] == '/' || arr[1] == '%'){
+                        if(str[1] == ')' || str[1] == '+' || str[1] == '-' || str[1] == '*' || str[1] == '/' || str[1] == '%'){
                               return false;
                         }
                   }else if(i != size - 1){
-                        if(arr[i-1] == '+' || arr[i-1] == '-' || arr[i-1] == '*' || arr[i-1] == '/' || arr[i-1] == '%' || arr[i+1] == '+' || arr[i+1] == '-' || arr[i+1] == '*' || arr[i+1] == '/' || arr[i+1] == '%'){
+                        if(str[i-1] == '+' || str[i-1] == '-' || str[i-1] == '*' || str[i-1] == '/' || str[i-1] == '%' || str[i+1] == '+' || str[i+1] == '-' || str[i+1] == '*' || str[i+1] == '/' || str[i+1] == '%'){
                               return false;
                         }
                   }else{
@@ -125,13 +142,13 @@ bool BiTree::isValid(char arr[], int size){
 
             }
             //For Multiplication/Exponintiation
-            if(arr[i] == '*'){
+            if(str[i] == '*'){
                   if(i == 0){
                         return false;
                   }else if(i != size - 1){
-                        if(arr[i-1] == '*' && arr[i+1] == '*'){
+                        if(str[i-1] == '*' && str[i+1] == '*'){
                               return false;
-                        }else if(arr[i-1] == '+' || arr[i-1] == '-' || arr[i-1] == '(' || arr[i-1] == '/' || arr[i-1] == '%' || arr[i+1] == '+' || arr[i+1] == '-' || arr[i+1] == ')' || arr[i+1] == '/' || arr[i+1] == '%'){
+                        }else if(str[i-1] == '+' || str[i-1] == '-' || str[i-1] == '(' || str[i-1] == '/' || str[i-1] == '%' || str[i+1] == '+' || str[i+1] == '-' || str[i+1] == ')' || str[i+1] == '/' || str[i+1] == '%'){
                               return false;
                         }
                   }else{
@@ -140,11 +157,11 @@ bool BiTree::isValid(char arr[], int size){
 
             }
             //For Division/Modulous
-            if(arr[i] == '/' || arr[i] == '%'){
+            if(str[i] == '/' || str[i] == '%'){
                   if(i == 0){
                         return false;
                   }else if(i != size - 1){
-                        if(arr[i-1] == '+' || arr[i-1] == '-' || arr[i-1] == '(' || arr[i-1] == '/' || arr[i-1] == '%' || arr[i-1] == '*' || arr[i+1] == '*' || arr[i+1] == '+' || arr[i+1] == '-' || arr[i+1] == ')' || arr[i+1] == '/' || arr[i+1] == '%' || arr[i+1] == '0'){
+                        if(str[i-1] == '+' || str[i-1] == '-' || str[i-1] == '(' || str[i-1] == '/' || str[i-1] == '%' || str[i-1] == '*' || str[i+1] == '*' || str[i+1] == '+' || str[i+1] == '-' || str[i+1] == ')' || str[i+1] == '/' || str[i+1] == '%' || str[i+1] == '0'){
                               return false;
                         }
                   }else{
@@ -156,14 +173,15 @@ bool BiTree::isValid(char arr[], int size){
       return true;
 }
 
-void BiTree::parse(char arr[], BiTrNode* curNode){
+void BiTree::parse(const string& str, BiTrNode* curNode){
       /*Parses through given equation string and turns it into a binary tree*/
       //Assumes valid equation
+      cout << "Made it to parse" << endl;
       int priority = 6;
       int priorityIndex = -1;
-      int size = strlen(arr);
+      int size = str.length();
       int parenthesisIndex[size];
-      parenIndex(arr, size, parenthesisIndex);
+      parenIndex(str, size, parenthesisIndex);
       for(int i = 0; i < size; i++){
             bool external = true;
             for(int j = 0; j < size; j++){
@@ -174,39 +192,37 @@ void BiTree::parse(char arr[], BiTrNode* curNode){
                   }
             }
             if(external){
-                  if(arr[i] == '+' || arr[i] == '-'){
+                  if(str[i] == '+' || str[i] == '-'){
                         if(priority >= 1){
                               priority = 1;
                               priorityIndex = i;
                         }
                   }
-                  else if(arr[i] == '/' || arr[i] == '%'){
+                  else if(str[i] == '/' || str[i] == '%'){
                         if(priority >= 2){
                               priority = 2;
                               priorityIndex = i;
                         }
                   }
-                  else if(arr[i] == '*'){
-                        if(arr[i-1] == '*' || arr[i+1] == '*'){
+                  else if(str[i] == '*'){
+                        if(str[i-1] == '*' || str[i+1] == '*'){
                               if(priority >= 3){
                                     priority = 3;
                                     priorityIndex = i;
                               }
-                        }
-                        else{
+                        }else{
                               if(priority >= 2){
                                     priority = 2;
                                     priorityIndex = i;
                               }                            
                         }
                   }
-                  else if(arr[i] == '(' || arr[i] == ')'){
+                  else if(str[i] == '(' || str[i] == ')'){
                         if(priority >= 4){
                               priority = 4;
                               priorityIndex = i;
                         }
-                  }
-                  else{
+                  }else if(str[i] == '0' || str[i] == '1' || str[i] == '2' || str[i] == '3' || str[i] == '4' || str[i] == '5' || str[i] == '6' || str[i] == '7' || str[i] == '8' || str[i] == '9'){
                         if(priority >= 5){
                               priority = 5;
                               priorityIndex = i;
@@ -215,81 +231,74 @@ void BiTree::parse(char arr[], BiTrNode* curNode){
             }
       }
       if(priority == 1){
-            char opr[1] = {arr[priorityIndex]};
+            string opr(1,str[priorityIndex]);
             if(priorityIndex == 0){
                   curNode->value = opr;
                   char q[1] = {'Q'};
                   curNode->left = new BiTrNode(q);
-                  char rArr[size - 1];
-                  int counter = 0;
-                  for(int r = 0; r < size-1; r++){
-                        rArr[counter] = arr[r+1];
-                        counter++;
+                  string rStr = "";
+                  for(int r = 1; r < size; r++){
+                        rStr += str[r];
                   }
-                  curNode->right = new BiTrNode(rArr);
-                  parse(rArr, curNode->right);
+                  curNode->right = new BiTrNode(rStr);
+                  parse(rStr, curNode->right);
             }else{
                   curNode->value = opr;
-                  char lArr[priorityIndex];
+                  string lStr = "";
                   for(int l = 0; l < priorityIndex; l++){
-                        lArr[l] = arr[l];
+                        lStr += str[l];
                   }
-                  curNode->left = new BiTrNode(lArr);
-                  parse(lArr, curNode->left);
-                  char rArr[size - (priorityIndex + 1)];
-                  int counter = 0;
+                  curNode->left = new BiTrNode(lStr);
+                  parse(lStr, curNode->left);
+                  string rStr = "";
                   for(int r = priorityIndex + 1; r < size; r++){
-                        rArr[counter] = arr[r];
-                        counter++;
+                        rStr += str[r];
                   }
-                  curNode->right = new BiTrNode(rArr);
-                  parse(rArr, curNode->right);
+                  curNode->right = new BiTrNode(rStr);
+                  parse(rStr, curNode->right);
             }
       }
       if(priority == 2){
-            char opr[1] = {arr[priorityIndex]};
+            string opr(1,str[priorityIndex]);
             curNode->value = opr;
-            char lArr[priorityIndex];
+            string lStr = "";
             for(int l = 0; l < priorityIndex; l++){
-                  lArr[l] = arr[l];
+                  lStr += str[l];
             }
-            curNode->left = new BiTrNode(lArr);
-            parse(lArr, curNode->left);
-            char rArr[size - (priorityIndex + 1)];
-            int counter = 0;
+            curNode->left = new BiTrNode(lStr);
+            parse(lStr, curNode->left);
+            string rStr = "";
             for(int r = priorityIndex + 1; r < size; r++){
-                  rArr[counter] = arr[r];
-                  counter++;
+                  rStr += str[r];
             }
-            curNode->right = new BiTrNode(rArr);
-            parse(rArr, curNode->right);
+            curNode->right = new BiTrNode(rStr);
+            parse(rStr, curNode->right);
       }
       if(priority == 3){
-            char opr[1] = {'^'};
+            string opr = "^";
             curNode->value = opr;
-            char lArr[priorityIndex];
-            for(int l = 0; l < priorityIndex; l++){
-                  lArr[l] = arr[l];
+            string lStr = "";
+            for(int l = 0; l < priorityIndex - 1; l++){
+                  lStr += str[l];
             }
-            curNode->left = new BiTrNode(lArr);
-            parse(lArr, curNode->left);
-            char rArr[size - (priorityIndex + 1)];
-            int counter = 0;
+            curNode->left = new BiTrNode(lStr);
+            parse(lStr, curNode->left);
+            string rStr = "";
             for(int r = priorityIndex + 1; r < size; r++){
-                  rArr[counter] = arr[r];
-                  counter++;
+                  rStr += str[r];
             }
-            curNode->right = new BiTrNode(rArr);
-            parse(rArr, curNode->right);
+            curNode->right = new BiTrNode(rStr);
+            parse(rStr, curNode->right);
       }
       if(priority == 4){
-            char internal[size-2];
-            int counter = 0;
+            string internal = "";
             for(int m = 1; m < size - 1; m++){
-                  internal[counter] = arr[m];
-                  counter++;
+                  internal += str[m];
             }
             curNode->value = internal;
             parse(internal, curNode);
+      }
+      if(priority == 5){
+            curNode->value = str;
       }
 }
