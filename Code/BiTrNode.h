@@ -1,9 +1,10 @@
+#include <string>
+using namespace std;
 class BiTrNode
-/*Binary Node Class*/
 {
 public:
-     BiTrNode(char data, BiTrNode* left = nullptr, BiTrNode* right = nullptr);
-     char value;
+     BiTrNode(const string& data, BiTrNode* left = nullptr, BiTrNode* right = nullptr);
+     string value;
      BiTrNode* left;
      BiTrNode* right;
 };
