@@ -1,4 +1,5 @@
 #include "BiTree.h"
+#include "operators.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -16,10 +17,6 @@ BiTree::~BiTree(){
 void BiTree::Clear(){
       deleteNodes(root);
       root = nullptr;
-      cout << "Cleared" << endl;
-      if(root == nullptr){
-            cout << "Null Pointed" << endl;
-      }
 }
 
 void BiTree::deleteNodes(BiTrNode* node){
@@ -28,33 +25,18 @@ void BiTree::deleteNodes(BiTrNode* node){
             deleteNodes(node->left);
             deleteNodes(node->right);
             delete node;
-            cout << "Node Deleted" << endl;
       }
 }
 
-void BiTree::test(){
-     //Will delete Later
-     string z = "1+(2**2-(3/4))";
-     cout << "Made String" << endl;
-     root = new BiTrNode(z);
-     cout << "Made Root" << endl;
-     parse(z, root);
-     cout << "Parsed" << endl;
-     testPrint(root);
-     cout << "Printed" << endl;
-}
-
-void BiTree::testPrint(BiTrNode* curNode){
-     //Will delete later
-     if(curNode != nullptr){
-           testPrint(curNode->left);
-           testPrint(curNode->right);
-            cout << "<><><><><><><><><>" << endl;
+void BiTree::Print(BiTrNode* curNode){
+      if(curNode != nullptr){
+            Print(curNode->left);
+            Print(curNode->right);
             cout << curNode->value << endl;
-            cout << "------------------" << endl;
       }
 }
 
+//Error checking functions
 void BiTree::parenIndex(const string& str, int size, int* priIndex){
       /*Takes an equation string of length size and finds the index values of each parenthesis and their pair*/
       //priIndex is an empty array defined outside of function and edited from function
@@ -173,10 +155,10 @@ bool BiTree::isValid(const string& str, int size){
       return true;
 }
 
+//Parisng and Calculating
 void BiTree::parse(const string& str, BiTrNode* curNode){
       /*Parses through given equation string and turns it into a binary tree*/
       //Assumes valid equation
-      cout << "Made it to parse" << endl;
       int priority = 6;
       int priorityIndex = -1;
       int size = str.length();
@@ -234,7 +216,7 @@ void BiTree::parse(const string& str, BiTrNode* curNode){
             string opr(1,str[priorityIndex]);
             if(priorityIndex == 0){
                   curNode->value = opr;
-                  char q[1] = {'Q'};
+                  string q = "Q";
                   curNode->left = new BiTrNode(q);
                   string rStr = "";
                   for(int r = 1; r < size; r++){
@@ -300,5 +282,45 @@ void BiTree::parse(const string& str, BiTrNode* curNode){
       }
       if(priority == 5){
             curNode->value = str;
+      }
+}
+
+string BiTree::calculateEq(const string& str){
+      if(isValid(str,str.length())){
+            root = new BiTrNode(str);
+            parse(str, root);
+            recCalculateEq(str, root);
+            return root->value;
+      }else{
+            string errString = "The given equation was invalid, please try again.";
+            return errString;
+      }
+}
+
+void BiTree::recCalculateEq(const string& str, BiTrNode* curNode){
+      if(curNode != nullptr){
+            recCalculateEq(str, curNode->left);
+            recCalculateEq(str, curNode->right);
+            if(curNode->value == "+"){
+                  if(curNode->left->value == "Q"){
+                        curNode->value = positive(curNode->right->value);
+                  }else{
+                        curNode->value = add(curNode->left->value, curNode->right->value);
+                  }
+            }else if(curNode->value == "-"){
+                  if(curNode->left->value == "Q"){
+                        curNode->value = negative(curNode->right->value);
+                  }else{
+                        curNode->value = subtract(curNode->left->value, curNode->right->value);
+                  }
+            }else if(curNode->value == "*"){
+                  curNode->value = multiply(curNode->left->value, curNode->right->value);
+            }else if(curNode->value == "/"){
+                  curNode->value = divide(curNode->left->value, curNode->right->value);
+            }else if(curNode->value == "%"){
+                  curNode->value = modulate(curNode->left->value, curNode->right->value);
+            }else if(curNode->value == "^"){
+                  curNode->value = exponent(curNode->left->value, curNode->right->value);
+            }
       }
 }
