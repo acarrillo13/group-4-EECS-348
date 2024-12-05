@@ -1,42 +1,33 @@
-#include <iostream>
+#include "operators.h"
+#include <cmath>
 using namespace std;
 
-int add(int n1, int n2){
-    int sum = n1 + n2;
+double add(double n1, double n2){
+    double sum = n1 + n2;
     return sum;
 }
 
-int subtract(int n1, int n2){
-    int subed = n1 - n2;
+double subtract(double n1, double n2){
+    double subed = n1 - n2;
     return subed;
 }
 
-int multiply(int n1, int n2){
-    int mult = n1 * n2;
+double multiply(double n1, double n2){
+    double mult = n1 * n2;
     return mult;
 }
 
-int divide(int n1, int n2){
-    int div = n1 / n2;
+double divide(double n1, double n2){
+    double div = n1 / n2;
     return div;
 }
 
 int modulate(int n1, int n2){
-    int mod = n1 % n2;
-    return mod;
+    int modu = n1 % n2;
+    return modu;
 }
-/*
-int exponent(int n1, int  n2){
-    int ex = 1;
-    for(i=0,i<n2,i++){
-        ex *= n1;
-    }
-    return ex;
-}
-*/
 
-int main(){
-    int t = modulate(4,3);
-    cout << t;
-    return 0;
+double exponent(double n1, double  n2){
+    double exp = pow(n1,n2);
+    return exp;
 }
