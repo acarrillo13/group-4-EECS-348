@@ -1,46 +1,60 @@
+#include "operators.h"
 #include "extra348.h"
-#include <iomanip>
-#include <string>
+#include <cmath>
 using namespace std;
 
-double extractNumeric(const string& str)   {    //function to parse string for a double
-    int length = str.length();
-    bool hasDecimal = false;  //if it has decimal point
-    bool hasDigits = false;   //if there are digits in the string
-    int signCount = 0;        //tracks the sign
-    string numberStr = "";    //holds string
+string add(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double sum = dn1 + dn2;
+    return to_string(sum);
+}
 
-    for (int i = 0; i < length; ++i) {
-        char c = str[i];
-        if (c == '+' || c == '-') {
-            if (i > 0 || signCount > 0) {   //checks if sign is at front
-                return -999999.99;
-            }
-            signCount++;
-            numberStr += c;
-        } else if (c == '.') {
-            if (hasDecimal) {   //checks to see if there are more than one decimal
-                return -999999.99;
-            }
-            hasDecimal = true;
-            numberStr += c;
-        } else if (isdigit(c)) {
-            hasDigits = true;
-            numberStr += c;
-        } else {//invalid character
-            return -999999.99;
-        }
-    }
+string subtract(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double subed = dn1 - dn2;
+    return to_string(subed);
+}
 
-    //check for digits
-    if (!hasDigits) {
-        return -999999.99;
-    }
+string multiply(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double mult = dn1 * dn2;
+    return to_string(mult);
+}
 
-    //convert string to double
-    try {
-        return stod(numberStr);
-    } catch (...) {
-        return -999999.99;
-    }
+string divide(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double div = dn1 / dn2;
+    return to_string(div);
+}
+
+string modulate(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    int in1 = static_cast<int>(dn1);
+    int in2 = static_cast<int>(dn2);
+    int modu = in1%in2;
+    return to_string(modu);
+}
+
+string exponent(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double exp = pow(dn1,dn2);
+    return to_string(exp);
+}
+
+string positive(const string& n1){
+    double dn1 = extractNumeric(n1);
+    double adn1 = abs(dn1);
+    return to_string(adn1);
+}
+
+string negative(const string& n1){
+    double dn1 = extractNumeric(n1);
+    double ndn1 = abs(dn1) * -1;
+    return to_string(ndn1);
 }
