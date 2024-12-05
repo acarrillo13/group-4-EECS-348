@@ -1,33 +1,60 @@
 #include "operators.h"
+#include "extra348.h"
 #include <cmath>
 using namespace std;
 
-double add(double n1, double n2){
-    double sum = n1 + n2;
-    return sum;
+string add(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double sum = dn1 + dn2;
+    return to_string(sum);
 }
 
-double subtract(double n1, double n2){
-    double subed = n1 - n2;
-    return subed;
+string subtract(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double subed = dn1 - dn2;
+    return to_string(subed);
 }
 
-double multiply(double n1, double n2){
-    double mult = n1 * n2;
-    return mult;
+string multiply(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double mult = dn1 * dn2;
+    return to_string(mult);
 }
 
-double divide(double n1, double n2){
-    double div = n1 / n2;
-    return div;
+string divide(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double div = dn1 / dn2;
+    return to_string(div);
 }
 
-int modulate(int n1, int n2){
-    int modu = n1 % n2;
-    return modu;
+string modulate(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    int in1 = static_cast<int>(dn1);
+    int in2 = static_cast<int>(dn2);
+    int modu = in1%in2;
+    return to_string(modu);
 }
 
-double exponent(double n1, double  n2){
-    double exp = pow(n1,n2);
-    return exp;
+string exponent(const string& n1, const string& n2){
+    double dn1 = extractNumeric(n1);
+    double dn2 = extractNumeric(n2);
+    double exp = pow(dn1,dn2);
+    return to_string(exp);
+}
+
+string positive(const string& n1){
+    double dn1 = extractNumeric(n1);
+    double adn1 = abs(dn1);
+    return to_string(adn1);
+}
+
+string negative(const string& n1){
+    double dn1 = extractNumeric(n1);
+    double ndn1 = abs(dn1) * -1;
+    return to_string(ndn1);
 }
