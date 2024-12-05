@@ -1,14 +1,19 @@
 #include <cmath>
+#include <string>
 using namespace std;
 
-double add(double n1, double n2);
+string add(const string& n1, const string& n2);
 
-double subtract(double n1, double n2);
+string subtract(const string& n1, const string& n2);
 
-double multiply(double n1, double n2);
+string multiply(const string& n1, const string& n2);
 
-double divide(double n1, double n2);
+string divide(const string& n1, const string& n2);
 
-int modulate(int n1, int n2);
+string modulate(const string& n1, const string& n2);
 
-double exponent(double n1, double  n2);
+string exponent(const string& n1, const string& n2);
+
+string positive(const string& n1);
+
+string negative(const string& n1);
