@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 
+/*Each functions takes a string of a number and outputs another number string.*/
+
 string add(const string& n1, const string& n2);
 
 string subtract(const string& n1, const string& n2);
