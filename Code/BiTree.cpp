@@ -36,6 +36,16 @@ void BiTree::Print(BiTrNode* curNode){
       }
 }
 
+void BiTree::test(){
+     string z;
+     cout << "Enter equation: ";
+     cin >> z;
+     root = new BiTrNode(z);
+     parse(z, root);
+     Print(root);
+     cout << calculateEq(z) << endl;
+}
+
 //Error checking functions
 void BiTree::parenIndex(const string& str, int size, int* priIndex){
       /*Takes an equation string of length size and finds the index values of each parenthesis and their pair*/
@@ -154,7 +164,6 @@ bool BiTree::isValid(const string& str, int size){
       }
       return true;
 }
-
 //Parisng and Calculating
 void BiTree::parse(const string& str, BiTrNode* curNode){
       /*Parses through given equation string and turns it into a binary tree*/
@@ -290,7 +299,12 @@ string BiTree::calculateEq(const string& str){
             root = new BiTrNode(str);
             parse(str, root);
             recCalculateEq(str, root);
-            return root->value;
+            if(root->value == "e"){
+                  string errString = "The given equation was invalid, please try again.";
+                  return errString;
+            }else{
+                  return root->value;
+            }
       }else{
             string errString = "The given equation was invalid, please try again.";
             return errString;
@@ -312,9 +326,9 @@ void BiTree::recCalculateEq(const string& str, BiTrNode* curNode){
                         curNode->value = negative(curNode->right->value);
                   }else{
                         curNode->value = subtract(curNode->left->value, curNode->right->value);
-                  }
+                   }
             }else if(curNode->value == "*"){
-                  curNode->value = multiply(curNode->left->value, curNode->right->value);
+                        curNode->value = multiply(curNode->left->value, curNode->right->value);
             }else if(curNode->value == "/"){
                   curNode->value = divide(curNode->left->value, curNode->right->value);
             }else if(curNode->value == "%"){
