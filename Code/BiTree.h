@@ -10,6 +10,7 @@ class BiTree
       void parenIndex(const string& str, int size, int* priIndex);
       bool isValid(const string& str, int size);
       void Clear();
+      void test();
       string calculateEq(const string& str);
    private:
       BiTrNode* root;
