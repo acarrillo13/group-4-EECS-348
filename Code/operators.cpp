@@ -68,6 +68,9 @@ string modulate(const string& n1, const string& n2){
         if(in2 == 0){
             string err = "e";
             return err;
+        }else if(dn1 != in1 || dn2 != in2){
+            string err = "e";
+            return err;
         }else{
             int modu = in1 / in2;
             return to_string(modu);
