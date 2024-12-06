@@ -23,3 +23,9 @@ We went over the 3rd document and filled it out together. We also heavily discus
 In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
 
 We went over the document 05-Use-cases and talked about possible use cases, examples, outputs, and pass/fail conditions for each of them, we also agreed to have a meeting later in the week to go over the code mostly for the parser but also the user interface.
+
+*December 6, 2024
+
+In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
+
+Another meeting to touch base and discuss where the code and user interface are and what needs to be worked on, we also began the document 06-User-Manual but decided to finish filling it out once the code is a little closer to completion. 
