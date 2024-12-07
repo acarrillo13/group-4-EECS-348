@@ -2,7 +2,9 @@
 #include <iomanip>
 #include <string>
 using namespace std;
-
+/*
+Turns a given string of a number into a double number
+*/
 double extractNumeric(const string& str)   {    //function to parse string for a double
     int length = str.length();
     bool hasDecimal = false;  //if it has decimal point
