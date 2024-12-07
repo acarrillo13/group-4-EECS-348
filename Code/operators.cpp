@@ -2,6 +2,9 @@
 #include "extra348.h"
 #include <cmath>
 using namespace std;
+/*
+Functions for calculating operator outputs of given strings of numbers.
+*/
 //E values mean that an error has occured or an error was given as input, returns error in both cases
 //All take in string as input, turn string into doubles (or integers in the case of moduluous) and output strings of the answer
 string add(const string& n1, const string& n2){
