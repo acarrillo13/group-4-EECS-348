@@ -3,7 +3,13 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
+/*
+Creates a binary tree for holding and calculating a given equation.
+Checks validity of the given equation.
+Parses given equation into a tree.
+Calculates parsed equation.
+Returns either an error message or answer in the calculateEq function.
+*/
 //Constructor
 BiTree::BiTree()
      :root(nullptr)
