@@ -29,3 +29,11 @@ We went over the document 05-Use-cases and talked about possible use cases, exam
 In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
 
 Another meeting to touch base and discuss where the code and user interface are and what needs to be worked on, we also began the document 06-User-Manual but decided to finish filling it out once the code is a little closer to completion. 
+
+*December 10, 2024
+
+In attendance: Noah Hickman, Riley Backus, Sina Asheghalishahi, Alexander Carrillo, and Wyatt Payne
+
+We are planning on having this be our final meeting  for this project. During this meeting,  we are finalizing changes to the GUI and filling out the document 06-Users-Manual. The code for the program itself is fully complete but we were and are having errors in the GUI.
+
+
