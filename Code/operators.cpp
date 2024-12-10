@@ -96,7 +96,7 @@ string modulate(const string& n1, const string& n2){
             return err;
         //Proper moduluous
         }else{
-            int modu = in1 / in2;
+            int modu = in1 % in2;
             return to_string(modu);
         }
     }
